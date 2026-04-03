@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Codsiga Amaahda</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f3f3f3;
+}
+
+/* HEADER */
+.header{
+  background:#7ac943;
+  color:white;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:18px;
+}
+
+.container{
+  padding:20px;
+}
+
+.card{
+  background:white;
+  border-radius:15px;
+  padding:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+h2{
+  text-align:center;
+}
+
+.progress{
+  display:flex;
+  justify-content:center;
+  margin:15px 0;
+}
+
+.bar{
+  width:60px;
+  height:6px;
+  background:#7ac943;
+  margin:0 5px;
+  border-radius:5px;
+}
+
+label{
+  display:block;
+  margin-top:15px;
+}
+
+input,select{
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  margin-top:5px;
+  font-size:16px;
+}
+
+.summary{
+  background:#f2f2f2;
+  margin-top:20px;
+  padding:15px;
+  border-radius:12px;
+  border-left:5px solid #7ac943;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid #ddd;
+}
+
+button{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:10px;
+  margin-top:15px;
+  font-size:18px;
+}
+
+.back{
+  background:#ddd;
+}
+
+.submit{
+  background:#7ac943;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<span>← Dib u noqo</span>
+<strong>Waafi</strong>
+<span>☰</span>
+</div>
+
+<div class="container">
+<div class="card">
+
+<h2>Codsiga Amaahda</h2>
+<p style="text-align:center;color:gray;">Tallaabada 3 ee 3</p>
+
+<div class="progress">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div>
+
+<label>Xaaladda Shaqada</label>
+<select>
+<option selected disabled>Dooro...</option>
+<option>Shaqaale</option>
+<option>Ganacsade</option>
+</select>
+
+<label>Dakhliga Sanadka ($)</label>
+<input type="number" placeholder="Geli dakhliga">
+
+<div class="summary">
+<h3>Soo koobidda Codsiga</h3>
+
+<div class="row">
+<span>Qaddarka Amaahda:</span>
+<span>-</span>
+</div>
+
+<div class="row">
+<span>Muddada Amaahda:</span>
+<span>-</span>
+</div>
+
+<div class="row">
+<span>Ujeedada:</span>
+<span>-</span>
+</div>
+
+<div class="row" style="border-bottom:none;">
+<span>Codsade:</span>
+<span>-</span>
+</div>
+
+</div>
+
+<button class="back">KA HORE</button>
+<button class="submit" onclick="finish()">DIR CODSIGA</button>
+
+</div>
+</div>
+
+<script>
+function finish(){
+  window.location.href="success.html";
+}
+</script>
+
+</body>
+</html>
