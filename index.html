@@ -3,44 +3,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Codsiga Amaahda</title>
+
+<title>Waafi Amaah</title>
 
 <style>
+
 body{
-font-family: Arial;
-background:#f3f3f3;
-padding:20px;
+  margin:0;
+  font-family:Arial;
+  background:#f2f2f2;
 }
 
+/* HEADER */
+.header{
+  background:linear-gradient(to right,#9bdc28,#6bc048);
+  color:white;
+  padding:18px;
+  font-size:24px;
+  font-weight:bold;
+}
+
+/* MAIN CARD */
 .container{
-background:white;
-padding:20px;
-border-radius:10px;
-max-width:400px;
-margin:auto;
+  padding:20px;
+}
+
+.card{
+  background:white;
+  border-radius:15px;
+  padding:20px;
+  box-shadow:0 0 12px rgba(0,0,0,0.1);
 }
 
 h2{
-text-align:center;
+  text-align:center;
+  margin-bottom:5px;
 }
 
-input,select,textarea{
-width:100%;
-padding:12px;
-margin-top:10px;
-margin-bottom:15px;
-border-radius:6px;
-border:1px solid #ccc;
+.subtitle{
+  text-align:center;
+  color:gray;
+  margin-bottom:20px;
 }
 
+/* CALCULATOR */
+.calc-box{
+  background:#f5f5f5;
+  padding:15px;
+  border-radius:12px;
+}
+
+.label{
+  margin-top:15px;
+  font-weight:bold;
+}
+
+.value{
+  float:right;
+  color:#6bc048;
+  font-weight:bold;
+}
+
+input[type=range]{
+  width:100%;
+}
+
+/* PAYMENT BOX */
+.payment{
+  background:white;
+  margin-top:20px;
+  padding:15px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  display:flex;
+  justify-content:space-between;
+  font-size:20px;
+}
+
+.green{
+  color:#6bc048;
+  font-weight:bold;
+}
+
+/* BUTTON */
 button{
-width:100%;
-padding:15px;
-background:#7ac943;
-border:none;
-color:white;
-font-size:16px;
-border-radius:8px;
+  width:100%;
+  margin-top:20px;
+  padding:16px;
+  border:none;
+  border-radius:10px;
+  font-size:18px;
+  color:white;
+  background:linear-gradient(to right,#9bdc28,#6bc048);
+  font-weight:bold;
+}
+
+/* FEATURES */
+.feature{
+  display:flex;
+  align-items:center;
+  margin-top:20px;
+}
+
+.icon{
+  font-size:30px;
+  margin-right:15px;
+}
+
+.small{
+  color:gray;
+  font-size:14px;
 }
 
 </style>
@@ -48,51 +120,103 @@ border-radius:8px;
 
 <body>
 
+<div class="header">Waafi</div>
+
 <div class="container">
 
-<h2>Codsiga Amaahda</h2>
+<div class="card">
 
-<form id="loanForm">
+<h2>Hel Amaah Deg Deg ah</h2>
+<div class="subtitle">
+Ansixid degdeg ah • Qiimo tartan ah • Muddooyin dabacsan
+</div>
 
-<label>Nooca Amaahda</label>
-<select name="nooca">
-<option>Amaah Shakhsi ah</option>
-<option>Amaah Ganacsi</option>
-</select>
+<div class="calc-box">
 
-<label>Qaddarka Amaahda ($)</label>
-<input name="lacag" required>
+<div class="label">
+Qaddarka Amaahda
+<span class="value" id="amountValue">$1000</span>
+</div>
 
-<label>Muddada Amaahda</label>
-<select name="muddo">
-<option>6 Bilood</option>
-<option>12 Bilood</option>
-<option>24 Bilood</option>
-</select>
+<input type="range" min="100" max="5000" value="1000" id="amount">
 
-<label>Ujeedada Amaahda</label>
-<textarea name="ujeedo"></textarea>
+<div class="label">
+Muddada Amaahda
+<span class="value" id="monthsValue">15 bilood</span>
+</div>
 
-<button type="submit">DIR CODSIGA</button>
+<input type="range" min="6" max="60" value="15" id="months">
 
-</form>
+<div class="payment">
+<span>Lacagta Bisha</span>
+<span class="green" id="monthly">$81.67</span>
+</div>
 
 </div>
 
+<button onclick="goNext()">CODSO HADDA</button>
+
+<!-- FEATURES -->
+<div class="feature">
+<div class="icon">⚡</div>
+<div>
+<div>Ansixid Degdeg ah</div>
+<div class="small">24 saac gudahood</div>
+</div>
+</div>
+
+<div class="feature">
+<div class="icon">💰</div>
+<div>
+<div>Qiimo Yar</div>
+<div class="small">Laga bilaabo 18%</div>
+</div>
+</div>
+
+<div class="feature">
+<div class="icon">🔒</div>
+<div>
+<div>Amaan ah</div>
+<div class="small">Heer banki</div>
+</div>
+</div>
+
+</div>
+</div>
+
 <script>
-document.getElementById("loanForm").onsubmit = async (e)=>{
-e.preventDefault();
 
-const data = Object.fromEntries(new FormData(e.target));
+const amount = document.getElementById("amount");
+const months = document.getElementById("months");
 
-await fetch("/send",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(data)
-});
+const amountValue = document.getElementById("amountValue");
+const monthsValue = document.getElementById("monthsValue");
+const monthly = document.getElementById("monthly");
 
-alert("Mahadsanid! Codsigaaga waa la diray.");
-};
+function calculate(){
+
+  let loan = amount.value;
+  let period = months.value;
+
+  amountValue.innerText = "$" + loan;
+  monthsValue.innerText = period + " bilood";
+
+  // simple calculation
+  let interest = 0.18;
+  let payment = (loan * (1 + interest)) / period;
+
+  monthly.innerText = "$" + payment.toFixed(2);
+}
+
+amount.oninput = calculate;
+months.oninput = calculate;
+
+calculate();
+
+function goNext(){
+  window.location.href = "/form.html";
+}
+
 </script>
 
 </body>
