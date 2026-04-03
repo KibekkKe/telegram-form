@@ -1,33 +1,26 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const axios = require("axios");
+const path = require("path");
 
 const app = express();
+
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname)));
 
-const TOKEN = process.env.BOT_TOKEN;
-const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`;
-
+// OPEN WEBSITE
 app.get("/", (req, res) => {
-  res.send("Bot is running");
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.post("/webhook", async (req, res) => {
-  const message = req.body.message;
-
-  if (message && message.text) {
-    const chatId = message.chat.id;
-
-    await axios.post(`${TELEGRAM_API}/sendMessage`, {
-      chat_id: chatId,
-      text: "✅ Bot connected successfully!"
-    });
-  }
+// RECEIVE FORM DATA
+app.post("/submit", (req, res) => {
+  console.log("New Customer Data:");
+  console.log(req.body);
 
   res.sendStatus(200);
 });
 
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
