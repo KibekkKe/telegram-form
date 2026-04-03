@@ -132,11 +132,11 @@ button{
 <div class="card">
 
 <h2>Codsiga Amaahda</h2>
-<div class="subtitle">Tallaabada 1 ee 3</div>
+<div class="subtitle">Tallaabada 2 ee 3</div>
 
 <div class="progress">
 <div class="bar active"></div>
-<div class="bar"></div>
+<div class="bar active"></div>
 <div class="bar"></div>
 </div>
 
@@ -154,7 +154,8 @@ id="monthValue">12 Bilood</div>
 <label>Ujeedada Amaahda</label>
 <textarea placeholder="Maxaad u isticmaali doontaa amaahda?"></textarea>
 
-<button>TALLAABADA XIGTA</button>
+<!-- ✅ CONNECTED BUTTON -->
+<button onclick="goToPage3()">TALLAABADA XIGTA</button>
 
 </div>
 
@@ -201,7 +202,12 @@ function setMonth(value){
   document.getElementById("monthValue").innerText=value;
   document.getElementById("monthPopup").classList.remove("show");
 }
+
+/* ✅ GO TO PAGE 3 */
+function goToPage3(){
+  window.location.href = "page3.html";
+}
 </script>
 
 </body>
-  </html>
+</html>
