@@ -4,122 +4,141 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Waafi Loan</title>
+<title>Waafi Amaah</title>
 
 <style>
+
 body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background:#f2f2f2;
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#f3f3f3;
 }
 
 /* HEADER */
 .header{
-    background:linear-gradient(90deg,#b4ec51,#4caf50);
-    color:white;
-    padding:15px;
-    font-size:24px;
-    font-weight:bold;
+  background:linear-gradient(90deg,#b7e12b,#63c23f);
+  color:white;
+  padding:18px;
+  font-size:26px;
+  font-weight:bold;
+  display:flex;
+  justify-content:space-between;
 }
 
 /* MAIN CARD */
 .container{
-    padding:20px;
+  padding:15px;
 }
 
 .card{
-    background:white;
-    border-radius:20px;
-    padding:20px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+  background:white;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 0 15px rgba(0,0,0,0.08);
 }
 
-h1{
-    text-align:center;
+/* TITLE */
+.title{
+  text-align:center;
+  font-size:28px;
+  font-weight:bold;
 }
 
 .subtitle{
-    text-align:center;
-    color:gray;
+  text-align:center;
+  color:#777;
+  margin-top:8px;
+  margin-bottom:20px;
 }
 
 /* CALCULATOR BOX */
 .calc{
-    background:#f6f6f6;
-    padding:20px;
-    border-radius:15px;
-    margin-top:20px;
+  background:#f1f1f1;
+  padding:20px;
+  border-radius:15px;
+}
+
+.calc h3{
+  margin-top:0;
+}
+
+/* SLIDERS */
+input[type=range]{
+  width:100%;
 }
 
 .row{
-    display:flex;
-    justify-content:space-between;
-    margin-top:10px;
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
 }
 
-input[type=range]{
-    width:100%;
-}
-
-/* RESULT BOX */
-.result{
-    margin-top:20px;
-    background:white;
-    padding:15px;
-    border-radius:12px;
-    border:1px solid #ddd;
-    display:flex;
-    justify-content:space-between;
-    font-size:20px;
+/* PAYMENT BOX */
+.payment{
+  background:white;
+  border-radius:12px;
+  padding:18px;
+  margin-top:20px;
+  display:flex;
+  justify-content:space-between;
+  font-size:20px;
+  border:1px solid #ddd;
 }
 
 .green{
-    color:#4caf50;
-    font-weight:bold;
+  color:#63c23f;
+  font-weight:bold;
 }
 
 /* BUTTON */
-.btn{
-    margin-top:20px;
-    background:linear-gradient(90deg,#b4ec51,#4caf50);
-    border:none;
-    width:100%;
-    padding:15px;
-    border-radius:12px;
-    color:white;
-    font-size:18px;
-    font-weight:bold;
+button{
+  width:100%;
+  margin-top:25px;
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(90deg,#b7e12b,#63c23f);
+  color:white;
+  font-size:20px;
+  font-weight:bold;
 }
 
-/* INFO LIST */
-.info{
-    margin-top:25px;
-}
-
-.info-item{
-    display:flex;
-    align-items:center;
-    margin-bottom:15px;
+/* FEATURES */
+.feature{
+  display:flex;
+  align-items:center;
+  margin-top:25px;
 }
 
 .icon{
-    font-size:28px;
-    margin-right:10px;
+  font-size:38px;
+  margin-right:15px;
 }
+
+.footer{
+  text-align:center;
+  color:#777;
+  margin:20px;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="header">Waafi</div>
+<div class="header">
+  Waafi
+  ☰
+</div>
 
 <div class="container">
+
 <div class="card">
 
-<h1>Hel Amaah Deg Deg ah</h1>
-<p class="subtitle">
+<div class="title">Hel Amaah Deg Deg ah</div>
+<div class="subtitle">
 Ansixid degdeg ah • Qiimo tartan ah • Muddooyin dabacsan
-</p>
+</div>
 
 <div class="calc">
 
@@ -127,81 +146,93 @@ Ansixid degdeg ah • Qiimo tartan ah • Muddooyin dabacsan
 
 <div class="row">
 <span>Qaddarka Amaahda</span>
-<span class="green" id="amountText">$1000</span>
+<span class="green">$<span id="amountValue">100</span></span>
 </div>
 
-<input type="range" min="100" max="5000" value="1000" id="amount">
+<input type="range" min="100" max="5000" value="100" id="amount">
+
+<div class="row">
+<span>$100</span>
+<span>$5,000</span>
+</div>
+
+<br>
 
 <div class="row">
 <span>Muddada Amaahda</span>
-<span class="green" id="monthsText">15 bilood</span>
+<span class="green"><span id="monthValue">6</span> bilood</span>
 </div>
 
-<input type="range" min="6" max="60" value="15" id="months">
+<input type="range" min="6" max="60" value="6" id="months">
 
-<div class="result">
+<div class="row">
+<span>6 bilood</span>
+<span>60 bilood</span>
+</div>
+
+<div class="payment">
 <span>Lacagta Bisha</span>
-<span class="green" id="monthly">$81.67</span>
+<span class="green">$<span id="payment">18.17</span></span>
 </div>
 
 </div>
 
-<button class="btn">CODSO HADDA</button>
+<button onclick="nextStep()">CODSO HADDA</button>
 
-<div class="info">
-
-<div class="info-item">
+<div class="feature">
 <div class="icon">⚡</div>
 <div>
-<strong>Ansixid Degdeg ah</strong><br>
-<small>24 saac gudahood</small>
+<b>Ansixid Degdeg ah</b><br>
+<span style="color:#777">24 saac gudahood</span>
 </div>
 </div>
 
-<div class="info-item">
+<div class="feature">
 <div class="icon">💰</div>
 <div>
-<strong>Qiimo Yar</strong><br>
-<small>Laga bilaabo 18%</small>
+<b>Qiimo Yar</b><br>
+<span style="color:#777">Laga bilaabo 18%</span>
 </div>
 </div>
 
-<div class="info-item">
+<div class="feature">
 <div class="icon">🔒</div>
 <div>
-<strong>Amaan ah</strong><br>
-<small>Heer banki</small>
+<b>Amaan ah</b><br>
+<span style="color:#777">Heer banki</span>
 </div>
 </div>
 
 </div>
 
 </div>
-</div>
+
+<div class="footer">© 2025 Waafi Soomaaliya</div>
 
 <script>
+
 const amount = document.getElementById("amount");
 const months = document.getElementById("months");
 
-const amountText = document.getElementById("amountText");
-const monthsText = document.getElementById("monthsText");
-const monthly = document.getElementById("monthly");
+const amountValue = document.getElementById("amountValue");
+const monthValue = document.getElementById("monthValue");
+const payment = document.getElementById("payment");
 
 function calculate(){
-    let loan = amount.value;
-    let period = months.value;
+  amountValue.innerText = amount.value;
+  monthValue.innerText = months.value;
 
-    amountText.innerText = "$" + loan;
-    monthsText.innerText = period + " bilood";
-
-    let interest = 0.18;
-    let payment = (loan * (1 + interest)) / period;
-
-    monthly.innerText = "$" + payment.toFixed(2);
+  let monthly = (amount.value * 1.09) / months.value;
+  payment.innerText = monthly.toFixed(2);
 }
 
 amount.oninput = calculate;
 months.oninput = calculate;
+
+function nextStep(){
+  window.location.href = "page2.html";
+}
+
 </script>
 
 </body>
