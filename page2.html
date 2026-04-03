@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Codsiga Amaahda</title>
 
 <style>
 body{
   margin:0;
-  font-family: Arial, sans-serif;
+  font-family:Arial;
   background:#f2f2f2;
 }
 
@@ -23,14 +24,8 @@ body{
   font-size:20px;
 }
 
-.header span{
-  font-weight:bold;
-}
-
 /* CARD */
-.container{
-  padding:20px;
-}
+.container{padding:20px;}
 
 .card{
   background:white;
@@ -39,18 +34,9 @@ body{
   box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
-h2{
-  text-align:center;
-  margin-bottom:5px;
-}
+h2{text-align:center;margin-bottom:5px;}
+.subtitle{text-align:center;color:gray;margin-bottom:20px;}
 
-.subtitle{
-  text-align:center;
-  color:gray;
-  margin-bottom:20px;
-}
-
-/* PROGRESS */
 .progress{
   display:flex;
   justify-content:center;
@@ -61,36 +47,34 @@ h2{
 .bar{
   width:60px;
   height:6px;
-  border-radius:5px;
   background:#ddd;
+  border-radius:5px;
 }
+.active{background:#79c143;}
 
-.bar.active{
-  background:#79c143;
-}
-
-/* INPUTS */
 label{
   display:block;
   margin-top:15px;
   margin-bottom:5px;
-  font-weight:500;
 }
 
-input, select, textarea{
+.input-box{
+  width:100%;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  background:#fff;
+}
+
+input,textarea{
   width:100%;
   padding:14px;
   border-radius:8px;
   border:1px solid #ddd;
-  font-size:16px;
 }
 
-textarea{
-  height:90px;
-  resize:none;
-}
+textarea{height:90px;}
 
-/* BUTTON */
 button{
   width:100%;
   margin-top:25px;
@@ -103,12 +87,35 @@ button{
   font-weight:bold;
 }
 
-/* FOOTER */
+/* POPUP */
+.popup{
+  position:fixed;
+  bottom:-100%;
+  left:0;
+  width:100%;
+  background:white;
+  border-radius:20px 20px 0 0;
+  transition:0.3s;
+  box-shadow:0 -3px 15px rgba(0,0,0,0.2);
+}
+
+.popup.show{
+  bottom:0;
+}
+
+.option{
+  padding:18px;
+  border-bottom:1px solid #eee;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:18px;
+}
+
 .footer{
   text-align:center;
   color:gray;
   margin-top:20px;
-  font-size:14px;
 }
 </style>
 </head>
@@ -116,9 +123,9 @@ button{
 <body>
 
 <div class="header">
-  ← Dib u noqo
-  <span>Waafi</span>
-  ☰
+← Dib u noqo
+<span>Waafi</span>
+☰
 </div>
 
 <div class="container">
@@ -128,23 +135,21 @@ button{
 <div class="subtitle">Tallaabada 1 ee 3</div>
 
 <div class="progress">
-  <div class="bar active"></div>
-  <div class="bar"></div>
-  <div class="bar"></div>
+<div class="bar active"></div>
+<div class="bar"></div>
+<div class="bar"></div>
 </div>
 
 <label>Nooca Amaahda</label>
-<select>
-  <option>Amaah Shakhsi ah</option>
-</select>
+<div class="input-box" onclick="openLoan()"
+id="loanValue">Amaah Shakhsi ah</div>
 
 <label>Qaddarka Amaahda ($)</label>
 <input type="number" value="1000">
 
 <label>Muddada Amaahda</label>
-<select>
-  <option>12 Bilood</option>
-</select>
+<div class="input-box" onclick="openMonths()"
+id="monthValue">12 Bilood</div>
 
 <label>Ujeedada Amaahda</label>
 <textarea placeholder="Maxaad u isticmaali doontaa amaahda?"></textarea>
@@ -157,6 +162,46 @@ button{
 © 2025 Waafi Soomaaliya
 </div>
 </div>
+
+<!-- LOAN POPUP -->
+<div class="popup" id="loanPopup">
+<div class="option" onclick="setLoan('Amaah Shakhsi ah')">Amaah Shakhsi ah ◉</div>
+<div class="option" onclick="setLoan('Amaah Ganacsi')">Amaah Ganacsi ○</div>
+<div class="option" onclick="setLoan('Amaah Guri')">Amaah Guri ○</div>
+<div class="option" onclick="setLoan('Amaah Baabuur')">Amaah Baabuur ○</div>
+<div class="option" onclick="setLoan('Amaah Waxbarasho')">Amaah Waxbarasho ○</div>
+</div>
+
+<!-- MONTH POPUP -->
+<div class="popup" id="monthPopup">
+<div class="option" onclick="setMonth('6 Bilood')">6 Bilood</div>
+<div class="option" onclick="setMonth('12 Bilood')">12 Bilood</div>
+<div class="option" onclick="setMonth('18 Bilood')">18 Bilood</div>
+<div class="option" onclick="setMonth('24 Bilood')">24 Bilood</div>
+<div class="option" onclick="setMonth('36 Bilood')">36 Bilood</div>
+<div class="option" onclick="setMonth('48 Bilood')">48 Bilood</div>
+<div class="option" onclick="setMonth('60 Bilood')">60 Bilood</div>
+</div>
+
+<script>
+function openLoan(){
+  document.getElementById("loanPopup").classList.add("show");
+}
+
+function openMonths(){
+  document.getElementById("monthPopup").classList.add("show");
+}
+
+function setLoan(value){
+  document.getElementById("loanValue").innerText=value;
+  document.getElementById("loanPopup").classList.remove("show");
+}
+
+function setMonth(value){
+  document.getElementById("monthValue").innerText=value;
+  document.getElementById("monthPopup").classList.remove("show");
+}
+</script>
 
 </body>
   </html>
