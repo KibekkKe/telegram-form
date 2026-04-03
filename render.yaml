@@ -1,0 +1,8 @@
+04.03 10:03 PM
+render.yaml
+services:
+  - type: web
+    name: telegram-form
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
