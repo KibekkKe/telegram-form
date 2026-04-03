@@ -4,160 +4,68 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Codsiga Amaahda</title>
+<title>Waafi - Codsi Amaah</title>
 
 <style>
-
 body{
-  font-family: Arial, sans-serif;
-  background:#f2f2f2;
+  font-family: Arial;
+  background:#f4f4f4;
   margin:0;
 }
 
-/* TOP BAR */
 .header{
-  background:#8cc63f;
+  background:#6bc048;
   color:white;
   padding:15px;
-  font-size:20px;
+  font-size:22px;
   font-weight:bold;
 }
 
-/* CARD */
-.container{
-  max-width:400px;
-  margin:20px auto;
+.card{
   background:white;
+  margin:20px;
   padding:20px;
-  border-radius:12px;
-  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
-h2{
-  text-align:center;
-}
-
-.progress{
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  margin:15px 0;
-}
-
-.bar{
-  width:60px;
-  height:6px;
-  border-radius:5px;
-  background:#ccc;
-}
-
-.active{
-  background:#8cc63f;
-}
-
-label{
-  margin-top:15px;
-  display:block;
-  font-weight:500;
-}
-
-input{
-  width:100%;
-  padding:14px;
-  margin-top:6px;
-  border-radius:8px;
+.option{
   border:1px solid #ddd;
-  font-size:16px;
+  padding:15px;
+  border-radius:8px;
+  margin-bottom:15px;
+  font-size:18px;
 }
 
-/* PHONE ROW */
-.phone{
-  display:flex;
-  gap:10px;
-}
-
-.code{
-  width:80px;
-}
-
-/* BUTTONS */
 button{
   width:100%;
-  padding:15px;
-  margin-top:15px;
-  border:none;
-  border-radius:10px;
-  font-size:16px;
-}
-
-.back{
-  background:#ddd;
-}
-
-.next{
-  background:#8cc63f;
+  background:#6bc048;
   color:white;
+  padding:15px;
+  border:none;
+  border-radius:8px;
+  font-size:18px;
   font-weight:bold;
 }
-
-.footer{
-  text-align:center;
-  color:#777;
-  margin:20px;
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="header">
-← Dib u noqo &nbsp;&nbsp;&nbsp; Waafi
-</div>
+<div class="header">Waafi</div>
 
-<div class="container">
+<div class="card">
 
-<h2>Codsiga Amaahda</h2>
-<p style="text-align:center;">Tallaabada 2 ee 3</p>
+<h2>Dooro Nooca Amaahda</h2>
 
-<div class="progress">
-<div class="bar active"></div>
-<div class="bar active"></div>
-<div class="bar"></div>
-</div>
+<div class="option">💰 Amaah Degdeg ah</div>
+<div class="option">🏠 Amaah Ganacsi</div>
+<div class="option">📱 Amaah Qalab</div>
 
-<form action="/submit" method="POST">
-
-<label>Magaca Hore</label>
-<input name="firstName" placeholder="Ahmed" required>
-
-<label>Magaca Dambe</label>
-<input name="lastName" placeholder="Hassan" required>
-
-<label>Ciwaanka Emailka</label>
-<input name="email" placeholder="ahmed.hassan@example.com">
-
-<label>Lambarka Taleefanka</label>
-
-<div class="phone">
-<input class="code" value="+252" readonly>
-<input name="phone" placeholder="612345678" required>
-</div>
-
-<small>Geli 9 tiro (tusaale: 612345678)</small>
-
-<button type="button" class="back">KA HORE</button>
-
-<button type="submit" class="next">
+<button onclick="location.href='step2.html'">
 TALLAABADA XIGTA
 </button>
 
-</form>
-
-</div>
-
-<div class="footer">
-© 2025 Waafi Soomaaliya
 </div>
 
 </body>
