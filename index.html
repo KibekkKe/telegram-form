@@ -4,97 +4,63 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Codsiga Amaahda</title>
+<title>Waafi Amaah</title>
 
 <style>
+
 body{
-  font-family: Arial;
-  background:#f4f4f4;
   margin:0;
+  font-family: Arial, sans-serif;
+  background:#f3f3f3;
 }
 
+/* TOP BAR */
 .header{
-  background:#6bc048;
+  background:#69be28;
   color:white;
   padding:15px;
   font-size:22px;
   font-weight:bold;
 }
 
-.card{
+/* CARD */
+.container{
+  max-width:420px;
+  margin:20px auto;
   background:white;
-  margin:20px;
   padding:20px;
-  border-radius:10px;
-  box-shadow:0 0 10px rgba(0,0,0,0.1);
+  border-radius:15px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
-input, select, textarea{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  margin-bottom:15px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  font-size:16px;
+h1{
+  text-align:center;
+  margin-bottom:5px;
 }
 
-button{
-  width:100%;
-  background:#6bc048;
-  color:white;
-  padding:15px;
-  border:none;
-  border-radius:8px;
-  font-size:18px;
+.subtitle{
+  text-align:center;
+  color:#777;
+  margin-bottom:25px;
+}
+
+/* BOX */
+.box{
+  background:#f7f7f7;
+  padding:20px;
+  border-radius:12px;
+}
+
+.label{
+  margin-top:15px;
   font-weight:bold;
 }
-</style>
-</head>
 
-<body>
-
-<div class="header">Waafi</div>
-
-<div class="card">
-
-<h2>Codsiga Amaahda</h2>
-
-<label>Magacaaga</label>
-<input id="name" placeholder="Geli magacaaga">
-
-<label>Lambarka Taleefanka</label>
-<input id="phone" placeholder="61xxxxxxx">
-
-<label>Magaalada</label>
-<input id="city" placeholder="Muqdisho">
-
-<label>Ujeedada Amaahda</label>
-<textarea id="purpose" placeholder="Maxaad u isticmaalaysaa amaahda?"></textarea>
-
-<button onclick="submitForm()">TALLAABADA XIGTA</button>
-
-</div>
-
-<script>
-async function submitForm(){
-
-const data = {
-  name: document.getElementById("name").value,
-  phone: document.getElementById("phone").value,
-  city: document.getElementById("city").value,
-  purpose: document.getElementById("purpose").value
-};
-
-await fetch("/submit",{
-  method:"POST",
-  headers:{ "Content-Type":"application/json"},
-  body:JSON.stringify(data)
-});
-
-alert("Codsiga waa la diray!");
+.value{
+  float:right;
+  color:#69be28;
+  font-weight:bold;
 }
-</script>
 
-</body>
-</html>
+input[type=range]{
+  width:
