@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Waafi - Codsi Amaah</title>
+<title>Codsiga Amaahda</title>
 
 <style>
 body{
@@ -29,12 +29,14 @@ body{
   box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
-.option{
-  border:1px solid #ddd;
-  padding:15px;
-  border-radius:8px;
+input, select, textarea{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
   margin-bottom:15px;
-  font-size:18px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:16px;
 }
 
 button{
@@ -56,17 +58,43 @@ button{
 
 <div class="card">
 
-<h2>Dooro Nooca Amaahda</h2>
+<h2>Codsiga Amaahda</h2>
 
-<div class="option">💰 Amaah Degdeg ah</div>
-<div class="option">🏠 Amaah Ganacsi</div>
-<div class="option">📱 Amaah Qalab</div>
+<label>Magacaaga</label>
+<input id="name" placeholder="Geli magacaaga">
 
-<button onclick="location.href='step2.html'">
-TALLAABADA XIGTA
-</button>
+<label>Lambarka Taleefanka</label>
+<input id="phone" placeholder="61xxxxxxx">
+
+<label>Magaalada</label>
+<input id="city" placeholder="Muqdisho">
+
+<label>Ujeedada Amaahda</label>
+<textarea id="purpose" placeholder="Maxaad u isticmaalaysaa amaahda?"></textarea>
+
+<button onclick="submitForm()">TALLAABADA XIGTA</button>
 
 </div>
+
+<script>
+async function submitForm(){
+
+const data = {
+  name: document.getElementById("name").value,
+  phone: document.getElementById("phone").value,
+  city: document.getElementById("city").value,
+  purpose: document.getElementById("purpose").value
+};
+
+await fetch("/submit",{
+  method:"POST",
+  headers:{ "Content-Type":"application/json"},
+  body:JSON.stringify(data)
+});
+
+alert("Codsiga waa la diray!");
+}
+</script>
 
 </body>
 </html>
