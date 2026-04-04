@@ -152,30 +152,48 @@ TALLAABADA XIGTA
 </div>
 
 <script>
+
+/* ===============================
+   SAVE DATA + MOVE TO PAGE 4
+================================= */
+
 document.getElementById("loanForm")
 .addEventListener("submit", async function(e){
 
   e.preventDefault();
 
-  const formData = Object.fromEntries(
-    new FormData(this).entries()
+  const formData =
+    Object.fromEntries(new FormData(this).entries());
+
+  /* ✅ SAVE FULL USER DATA */
+  localStorage.setItem(
+    "loanUserData",
+    JSON.stringify(formData)
   );
 
-  /* ✅ SAVE DATA FOR PAGE 4 */
-  localStorage.setItem("loanUserData", JSON.stringify(formData));
+  /* ⭐ IMPORTANT — SAVE PHONE SEPARATELY */
+  localStorage.setItem(
+    "phoneNumber",
+    formData.phone.trim()
+  );
 
-  /* OPTIONAL: SEND TO SERVER */
-  await fetch("/submit",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body:JSON.stringify(formData)
-  });
+  /* OPTIONAL SERVER SEND (SAFE) */
+  try{
+    await fetch("/submit",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(formData)
+    });
+  }catch(err){
+    console.log("Server not connected (OK)");
+  }
 
-  /* ✅ GO TO PAGE 4 */
-  window.location.href = "page4.html";
+  /* GO TO PAGE 4 */
+  window.location.href="page4.html";
 });
+
 </script>
 
 </body>
