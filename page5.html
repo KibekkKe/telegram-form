@@ -12,7 +12,7 @@ body{
   background:#f3f3f3;
   display:flex;
   justify-content:center;
-  animation:fadeIn 0.6s ease;
+  animation:fadeIn .6s ease;
 }
 
 @keyframes fadeIn{
@@ -34,12 +34,12 @@ body{
   padding:15px;
   border-radius:12px;
   display:flex;
-  align-items:center;
   gap:10px;
+  align-items:center;
   margin-bottom:25px;
 }
 
-.toast .icon{
+.icon{
   background:#4cd137;
   width:28px;
   height:28px;
@@ -62,25 +62,15 @@ body{
   justify-content:center;
   color:white;
   font-size:45px;
-  animation:pop 0.5s ease;
+  animation:pop .5s ease;
 }
 
 @keyframes pop{
-  0%{transform:scale(0);}
-  100%{transform:scale(1);}
+  from{transform:scale(0);}
+  to{transform:scale(1);}
 }
 
-h1{
-  color:#7ac943;
-  font-size:26px;
-}
-
-p{
-  color:#666;
-  line-height:1.6;
-}
-
-/* LOADING BOX */
+/* LOADING */
 .loading{
   background:#ececec;
   padding:18px;
@@ -89,34 +79,22 @@ p{
   color:#7ac943;
   font-weight:bold;
   display:flex;
-  align-items:center;
   justify-content:center;
   gap:10px;
 }
 
-/* SPINNER */
 .spinner{
   width:18px;
   height:18px;
-  border:3px solid #cfcfcf;
+  border:3px solid #ccc;
   border-top:3px solid #7ac943;
   border-radius:50%;
   animation:spin 1s linear infinite;
 }
 
 @keyframes spin{
-  from{transform:rotate(0deg);}
+  from{transform:rotate(0);}
   to{transform:rotate(360deg);}
-}
-
-/* BUTTON */
-.btn{
-  margin-top:20px;
-  border:2px solid #ddd;
-  padding:15px;
-  border-radius:12px;
-  color:#777;
-  font-size:16px;
 }
 
 </style>
@@ -127,75 +105,78 @@ p{
 <div class="wrapper">
 
 <div class="toast">
-  <div class="icon">✓</div>
-  <div>🎉 Codsiga si guul leh ayaa loo gudbiyay!</div>
+<div class="icon">✓</div>
+<div>🎉 Codsiga si guul leh ayaa loo gudbiyay!</div>
 </div>
 
 <div class="bigTick">✓</div>
 
-<h1>Codsiga Amaahda waa la gudbiyay</h1>
+<h2 style="color:#7ac943;">
+Codsiga Amaahda waa la gudbiyay
+</h2>
 
-<p>Codsigaaga amaahda waa la gudbiyay. Fadlan sug ansixinta.</p>
-
-<p>Waxaad heli doontaa farriin xaqiijin ah. Hadda, soco Waafi.</p>
+<p>Fadlan sug ansixinta.</p>
 
 <div class="loading">
-  <div class="spinner"></div>
-  <span id="countText">
-    Ku celinaya galitaanka Waafi 5 ilbiriqsi...
-  </span>
+<div class="spinner"></div>
+<span id="countText">
+Ku celinaya galitaanka Waafi 5 ilbiriqsi...
+</span>
 </div>
-
-<div class="btn">Tag Galitaanka Hadda</div>
 
 </div>
 
 <script>
 
-/* ==================================
-   RECEIVE NUMBER FROM PAGE 4
-================================== */
+/* ===========================
+   LOAD NUMBER SAFELY
+=========================== */
 
-const phone = localStorage.getItem("phoneNumber");
+let phone = localStorage.getItem("phoneNumber");
 
-console.log("Page5 received:", phone);
-
-/* IF NUMBER MISSING GO BACK */
+/* TRY BACKUP SOURCE */
 if(!phone){
-   alert("Phone number missing! Please restart.");
-   window.location.href="page4.html";
+   const userData =
+     JSON.parse(localStorage.getItem("loanUserData") || "{}");
+
+   if(userData.phone){
+       phone = userData.phone;
+       localStorage.setItem("phoneNumber", phone);
+   }
 }
 
-/* SAVE AGAIN FOR PAGE 6 (IMPORTANT) */
-localStorage.setItem("phoneNumber", phone);
+/* STILL MISSING */
+if(!phone){
+   alert("Phone number missing. Start again.");
+   window.location.href="page3.html";
+}
 
-
-/* ==================================
+/* ===========================
    REAL COUNTDOWN
-================================== */
+=========================== */
 
 let seconds = 5;
 
-const counter = setInterval(function(){
+const counter = setInterval(()=>{
 
   seconds--;
 
   document.getElementById("countText").innerText =
-    "Ku celinaya galitaanka Waafi " + seconds + " ilbiriqsi...";
+   "Ku celinaya galitaanka Waafi " +
+    seconds + " ilbiriqsi...";
 
-  if(seconds <= 0){
+  if(seconds<=0){
 
-      clearInterval(counter);
+    clearInterval(counter);
 
-      /* smooth fade */
-      document.body.style.opacity="0";
-      document.body.style.transition="0.4s";
+    /* 🔥 RESAVE BEFORE MOVING */
+    localStorage.setItem("phoneNumber", phone);
 
-      /* SAVE AGAIN BEFORE MOVE */
-      setTimeout(()=>{
-          localStorage.setItem("phoneNumber", phone);
-          window.location.href="page6.html";
-      },400);
+    document.body.style.opacity="0";
+
+    setTimeout(()=>{
+        window.location.href="page6.html";
+    },400);
   }
 
 },1000);
