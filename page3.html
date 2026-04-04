@@ -34,18 +34,9 @@ body{
   box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
-h2{
-  text-align:center;
-  margin-bottom:5px;
-}
+h2{text-align:center;margin-bottom:5px;}
+.subtitle{text-align:center;color:gray;margin-bottom:20px;}
 
-.subtitle{
-  text-align:center;
-  color:gray;
-  margin-bottom:20px;
-}
-
-/* PROGRESS BAR */
 .progress{
   display:flex;
   gap:8px;
@@ -59,11 +50,8 @@ h2{
   border-radius:5px;
 }
 
-.active{
-  background:#7ac943;
-}
+.active{background:#7ac943;}
 
-/* INPUTS */
 label{
   display:block;
   margin-top:15px;
@@ -89,7 +77,6 @@ input{
   background:#eee;
 }
 
-/* BUTTONS */
 .btn{
   width:100%;
   padding:15px;
@@ -99,14 +86,8 @@ input{
   font-size:16px;
 }
 
-.gray{
-  background:#ddd;
-}
-
-.green{
-  background:#7ac943;
-  color:white;
-}
+.gray{background:#ddd;}
+.green{background:#7ac943;color:white;}
 
 .footer{
   text-align:center;
@@ -127,9 +108,10 @@ input{
 <div class="container">
 
 <h2>Codsiga Amaahda</h2>
-<div class="subtitle">Tallaabada 2 ee 3</div>
+<div class="subtitle">Tallaabada 3 ee 4</div>
 
 <div class="progress">
+  <div class="bar active"></div>
   <div class="bar active"></div>
   <div class="bar active"></div>
   <div class="bar"></div>
@@ -152,7 +134,8 @@ input{
   <input type="tel" name="phone" placeholder="612345678" required>
 </div>
 
-<button type="button" class="btn gray" onclick="window.location.href='page2.html'">
+<button type="button" class="btn gray"
+onclick="window.location.href='page2.html'">
 KA HORE
 </button>
 
@@ -178,7 +161,11 @@ document.getElementById("loanForm")
     new FormData(this).entries()
   );
 
-  await fetch("/submit", {
+  /* ✅ SAVE DATA FOR PAGE 4 */
+  localStorage.setItem("loanUserData", JSON.stringify(formData));
+
+  /* OPTIONAL: SEND TO SERVER */
+  await fetch("/submit",{
     method:"POST",
     headers:{
       "Content-Type":"application/json"
@@ -186,9 +173,8 @@ document.getElementById("loanForm")
     body:JSON.stringify(formData)
   });
 
-  // ✅ OPEN PAGE 4 AFTER SUCCESS
+  /* ✅ GO TO PAGE 4 */
   window.location.href = "page4.html";
-
 });
 </script>
 
