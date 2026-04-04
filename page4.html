@@ -14,6 +14,7 @@ body{
   background:#f2f2f2;
 }
 
+/* HEADER */
 .header{
   background:#7ac943;
   color:white;
@@ -23,6 +24,7 @@ body{
   font-weight:bold;
 }
 
+/* CARD */
 .container{
   max-width:420px;
   margin:20px auto;
@@ -32,31 +34,58 @@ body{
   box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
-h2{ margin-bottom:20px; }
+/* PROGRESS */
+.progress{
+  display:flex;
+  gap:8px;
+  margin-bottom:25px;
+}
+
+.bar{
+  flex:1;
+  height:6px;
+  background:#7ac943;
+  border-radius:5px;
+}
+
+/* INPUTS */
+label{
+  display:block;
+  margin-top:15px;
+  margin-bottom:6px;
+  font-size:16px;
+}
+
+select,input{
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:16px;
+}
+
+/* SUMMARY CARD */
+.summary{
+  background:#f4f4f4;
+  border-left:6px solid #7ac943;
+  padding:15px;
+  border-radius:12px;
+  margin-top:20px;
+}
 
 .row{
   display:flex;
   justify-content:space-between;
-  padding:15px 0;
-  border-bottom:1px solid #eee;
-  font-size:18px;
+  padding:12px 0;
+  border-bottom:1px solid #ddd;
+  font-size:17px;
 }
 
-/* OPTION LIST (LIKE SCREENSHOT) */
-.option{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px;
-  border-bottom:1px solid #eee;
-  font-size:18px;
+.row:last-child{
+  border-bottom:none;
 }
 
-.option input{
-  width:22px;
-  height:22px;
-}
-
+/* BUTTONS */
 .btn{
   width:100%;
   padding:15px;
@@ -87,9 +116,33 @@ h2{ margin-bottom:20px; }
 
 <div class="container">
 
-<h2>Soo koobidda Codsiga</h2>
+<!-- PROGRESS -->
+<div class="progress">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div>
+
+<!-- JOB -->
+<label>Xaaladda Shaqada</label>
+
+<select id="job">
+<option value="Shaqaale">Shaqaale</option>
+<option value="Shaqo-qabsi gaar ah">Shaqo-qabsi gaar ah</option>
+<option value="Shaqo la'aan">Shaqo la'aan</option>
+<option value="Hawl qabsi ka baxay">Hawl qabsi ka baxay</option>
+<option value="Arday">Arday</option>
+</select>
+
+<!-- INCOME -->
+<label>Dakhliga Sanadka ($)</label>
+<input type="number" id="income" placeholder="25,000">
 
 <!-- SUMMARY -->
+<div class="summary">
+
+<h3>Soo koobidda Codsiga</h3>
+
 <div class="row">
 <span>Qaddarka Amaahda:</span>
 <span>$1,000</span>
@@ -110,34 +163,6 @@ h2{ margin-bottom:20px; }
 <span id="customerName"></span>
 </div>
 
-<br>
-
-<label><b>Shaqada</b></label>
-
-<!-- OPTIONS LIKE YOUR IMAGE -->
-<div class="option">
-<span>Shaqaale</span>
-<input type="radio" name="job" value="Shaqaale">
-</div>
-
-<div class="option">
-<span>Shaqo-qabsi gaar ah</span>
-<input type="radio" name="job" value="Shaqo-qabsi gaar ah">
-</div>
-
-<div class="option">
-<span>Shaqo la'aan</span>
-<input type="radio" name="job" value="Shaqo la'aan">
-</div>
-
-<div class="option">
-<span>Hawl qabsi ka baxay</span>
-<input type="radio" name="job" value="Hawl qabsi ka baxay">
-</div>
-
-<div class="option">
-<span>Arday</span>
-<input type="radio" name="job" value="Arday">
 </div>
 
 <button class="btn gray"
@@ -146,7 +171,7 @@ KA HORE
 </button>
 
 <button class="btn green" onclick="goToPage5()">
-SII WAD →
+DIR CODSIGA
 </button>
 
 </div>
@@ -157,8 +182,8 @@ SII WAD →
 
 <script>
 
-/* ✅ GET DATA FROM PAGE 3 */
-const userData =
+/* LOAD DATA FROM PAGE 3 */
+let userData =
 JSON.parse(localStorage.getItem("loanUserData"));
 
 if(userData){
@@ -166,27 +191,23 @@ if(userData){
     userData.firstName + " " + userData.lastName;
 }
 
-/* ✅ SEND DATA TO PAGE 5 */
+/* SEND TO PAGE 5 */
 function goToPage5(){
 
-  const selected =
-  document.querySelector('input[name="job"]:checked');
+  const job =
+  document.getElementById("job").value;
 
-  if(!selected){
-    alert("Fadlan dooro shaqadaada");
-    return;
-  }
+  const income =
+  document.getElementById("income").value;
 
-  // save job selection
-  userData.job = selected.value;
+  userData.job = job;
+  userData.income = income;
 
-  // save all data
   localStorage.setItem(
     "loanCompleteData",
     JSON.stringify(userData)
   );
 
-  // open page 5
   window.location.href = "page5.html";
 }
 
