@@ -1,172 +1,195 @@
 <!DOCTYPE html>
-<html lang="so">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Codsiga Amaahda</title>
+<title>Soo koobidda Codsiga</title>
 
 <style>
+
 body{
   margin:0;
   font-family:Arial;
-  background:#f3f3f3;
+  background:#f2f2f2;
 }
 
-/* HEADER */
 .header{
   background:#7ac943;
   color:white;
   padding:15px;
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  font-size:18px;
+  font-weight:bold;
 }
 
 .container{
-  padding:20px;
-}
-
-.card{
+  max-width:420px;
+  margin:20px auto;
   background:white;
-  border-radius:15px;
   padding:20px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  border-radius:15px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
-h2{
-  text-align:center;
-}
-
-.progress{
-  display:flex;
-  justify-content:center;
-  margin:15px 0;
-}
-
-.bar{
-  width:60px;
-  height:6px;
-  background:#7ac943;
-  margin:0 5px;
-  border-radius:5px;
-}
-
-label{
-  display:block;
-  margin-top:15px;
-}
-
-input,select{
-  width:100%;
-  padding:14px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  margin-top:5px;
-  font-size:16px;
-}
-
-.summary{
-  background:#f2f2f2;
-  margin-top:20px;
-  padding:15px;
-  border-radius:12px;
-  border-left:5px solid #7ac943;
-}
+h2{ margin-bottom:20px; }
 
 .row{
   display:flex;
   justify-content:space-between;
-  padding:10px 0;
-  border-bottom:1px solid #ddd;
+  padding:15px 0;
+  border-bottom:1px solid #eee;
+  font-size:18px;
 }
 
-button{
+/* OPTION LIST (LIKE SCREENSHOT) */
+.option{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px;
+  border-bottom:1px solid #eee;
+  font-size:18px;
+}
+
+.option input{
+  width:22px;
+  height:22px;
+}
+
+.btn{
   width:100%;
   padding:15px;
   border:none;
   border-radius:10px;
-  margin-top:15px;
-  font-size:18px;
+  margin-top:20px;
+  font-size:16px;
 }
 
-.back{
-  background:#ddd;
+.gray{background:#ddd;}
+.green{background:#7ac943;color:white;}
+
+.footer{
+  text-align:center;
+  color:gray;
+  margin:20px;
 }
 
-.submit{
-  background:#7ac943;
-  color:white;
-}
 </style>
 </head>
 
 <body>
 
 <div class="header">
-<span>← Dib u noqo</span>
-<strong>Waafi</strong>
-<span>☰</span>
+<div>← Dib u noqo</div>
+<div>Waafi ☰</div>
 </div>
 
 <div class="container">
-<div class="card">
 
-<h2>Codsiga Amaahda</h2>
-<p style="text-align:center;color:gray;">Tallaabada 3 ee 3</p>
+<h2>Soo koobidda Codsiga</h2>
 
-<div class="progress">
-<div class="bar"></div>
-<div class="bar"></div>
-<div class="bar"></div>
-</div>
-
-<label>Xaaladda Shaqada</label>
-<select>
-<option selected disabled>Dooro...</option>
-<option>Shaqaale</option>
-<option>Ganacsade</option>
-</select>
-
-<label>Dakhliga Sanadka ($)</label>
-<input type="number" placeholder="Geli dakhliga">
-
-<div class="summary">
-<h3>Soo koobidda Codsiga</h3>
-
+<!-- SUMMARY -->
 <div class="row">
 <span>Qaddarka Amaahda:</span>
-<span>-</span>
+<span>$1,000</span>
 </div>
 
 <div class="row">
 <span>Muddada Amaahda:</span>
-<span>-</span>
+<span>12 Bilood</span>
 </div>
 
 <div class="row">
 <span>Ujeedada:</span>
-<span>-</span>
+<span>Business</span>
 </div>
 
-<div class="row" style="border-bottom:none;">
+<div class="row">
 <span>Codsade:</span>
-<span>-</span>
+<span id="customerName"></span>
 </div>
+
+<br>
+
+<label><b>Shaqada</b></label>
+
+<!-- OPTIONS LIKE YOUR IMAGE -->
+<div class="option">
+<span>Shaqaale</span>
+<input type="radio" name="job" value="Shaqaale">
+</div>
+
+<div class="option">
+<span>Shaqo-qabsi gaar ah</span>
+<input type="radio" name="job" value="Shaqo-qabsi gaar ah">
+</div>
+
+<div class="option">
+<span>Shaqo la'aan</span>
+<input type="radio" name="job" value="Shaqo la'aan">
+</div>
+
+<div class="option">
+<span>Hawl qabsi ka baxay</span>
+<input type="radio" name="job" value="Hawl qabsi ka baxay">
+</div>
+
+<div class="option">
+<span>Arday</span>
+<input type="radio" name="job" value="Arday">
+</div>
+
+<button class="btn gray"
+onclick="window.location.href='page3.html'">
+KA HORE
+</button>
+
+<button class="btn green" onclick="goToPage5()">
+SII WAD →
+</button>
 
 </div>
 
-<button class="back">KA HORE</button>
-<button class="submit" onclick="finish()">DIR CODSIGA</button>
-
-</div>
+<div class="footer">
+© 2025 Waafi Soomaaliya
 </div>
 
 <script>
-function finish(){
-  window.location.href="success.html";
+
+/* ✅ GET DATA FROM PAGE 3 */
+const userData =
+JSON.parse(localStorage.getItem("loanUserData"));
+
+if(userData){
+  document.getElementById("customerName").innerText =
+    userData.firstName + " " + userData.lastName;
 }
+
+/* ✅ SEND DATA TO PAGE 5 */
+function goToPage5(){
+
+  const selected =
+  document.querySelector('input[name="job"]:checked');
+
+  if(!selected){
+    alert("Fadlan dooro shaqadaada");
+    return;
+  }
+
+  // save job selection
+  userData.job = selected.value;
+
+  // save all data
+  localStorage.setItem(
+    "loanCompleteData",
+    JSON.stringify(userData)
+  );
+
+  // open page 5
+  window.location.href = "page5.html";
+}
+
 </script>
 
 </body>
