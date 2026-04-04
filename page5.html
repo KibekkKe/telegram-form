@@ -80,7 +80,6 @@ p{
   line-height:1.6;
 }
 
-/* LOADING BOX */
 .loading{
   background:#ececec;
   padding:18px;
@@ -94,7 +93,6 @@ p{
   gap:10px;
 }
 
-/* SPINNER */
 .spinner{
   width:18px;
   height:18px;
@@ -109,7 +107,6 @@ p{
   to{transform:rotate(360deg);}
 }
 
-/* BUTTON */
 .btn{
   margin-top:20px;
   border:2px solid #ddd;
@@ -152,6 +149,18 @@ p{
 
 <script>
 
+/* ✅ GET DATA FROM PAGE 4 */
+let completeData =
+JSON.parse(localStorage.getItem("loanCompleteData"));
+
+/* ✅ SAVE AGAIN FOR PAGE 6 (IMPORTANT FIX) */
+if(completeData){
+   localStorage.setItem(
+      "loanFinalData",
+      JSON.stringify(completeData)
+   );
+}
+
 /* REAL COUNTDOWN */
 let seconds = 5;
 
@@ -163,9 +172,9 @@ const counter = setInterval(function(){
     "Ku celinaya galitaanka Waafi " + seconds + " ilbiriqsi...";
 
   if(seconds <= 0){
+
       clearInterval(counter);
 
-      // smooth transition
       document.body.style.opacity="0";
 
       setTimeout(()=>{
