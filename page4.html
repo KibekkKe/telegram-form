@@ -123,7 +123,6 @@ select,input{
 <div class="bar"></div>
 </div>
 
-<!-- JOB -->
 <label>Xaaladda Shaqada</label>
 
 <select id="job">
@@ -134,11 +133,9 @@ select,input{
 <option value="Arday">Arday</option>
 </select>
 
-<!-- INCOME -->
 <label>Dakhliga Sanadka ($)</label>
 <input type="number" id="income" placeholder="25,000">
 
-<!-- SUMMARY -->
 <div class="summary">
 
 <h3>Soo koobidda Codsiga</h3>
@@ -182,32 +179,40 @@ DIR CODSIGA
 
 <script>
 
-/* LOAD DATA FROM PAGE 3 */
-let userData =
-JSON.parse(localStorage.getItem("loanUserData"));
+/* =============================
+   LOAD DATA FROM PAGE 3
+============================= */
 
-if(userData){
+let userData =
+JSON.parse(localStorage.getItem("loanUserData")) || {};
+
+/* show customer name safely */
+if(userData.firstName && userData.lastName){
   document.getElementById("customerName").innerText =
     userData.firstName + " " + userData.lastName;
 }
 
-/* SEND TO PAGE 5 */
+/* =============================
+   SEND DATA TO PAGE 5
+============================= */
+
 function goToPage5(){
 
-  const job =
-  document.getElementById("job").value;
+  const job = document.getElementById("job").value;
+  const income = document.getElementById("income").value;
 
-  const income =
-  document.getElementById("income").value;
-
+  /* keep old data */
   userData.job = job;
   userData.income = income;
 
+  /* VERY IMPORTANT:
+     Save COMPLETE data including phone number */
   localStorage.setItem(
     "loanCompleteData",
     JSON.stringify(userData)
   );
 
+  /* move to next page */
   window.location.href = "page5.html";
 }
 
