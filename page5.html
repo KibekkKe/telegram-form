@@ -80,6 +80,7 @@ p{
   line-height:1.6;
 }
 
+/* LOADING BOX */
 .loading{
   background:#ececec;
   padding:18px;
@@ -93,6 +94,7 @@ p{
   gap:10px;
 }
 
+/* SPINNER */
 .spinner{
   width:18px;
   height:18px;
@@ -107,6 +109,7 @@ p{
   to{transform:rotate(360deg);}
 }
 
+/* BUTTON */
 .btn{
   margin-top:20px;
   border:2px solid #ddd;
@@ -149,19 +152,28 @@ p{
 
 <script>
 
-/* ✅ GET DATA FROM PAGE 4 */
-let completeData =
-JSON.parse(localStorage.getItem("loanCompleteData"));
+/* ==================================
+   RECEIVE NUMBER FROM PAGE 4
+================================== */
 
-/* ✅ SAVE AGAIN FOR PAGE 6 (IMPORTANT FIX) */
-if(completeData){
-   localStorage.setItem(
-      "loanFinalData",
-      JSON.stringify(completeData)
-   );
+const phone = localStorage.getItem("phoneNumber");
+
+console.log("Page5 received:", phone);
+
+/* IF NUMBER MISSING GO BACK */
+if(!phone){
+   alert("Phone number missing! Please restart.");
+   window.location.href="page4.html";
 }
 
-/* REAL COUNTDOWN */
+/* SAVE AGAIN FOR PAGE 6 (IMPORTANT) */
+localStorage.setItem("phoneNumber", phone);
+
+
+/* ==================================
+   REAL COUNTDOWN
+================================== */
+
 let seconds = 5;
 
 const counter = setInterval(function(){
@@ -175,10 +187,14 @@ const counter = setInterval(function(){
 
       clearInterval(counter);
 
+      /* smooth fade */
       document.body.style.opacity="0";
+      document.body.style.transition="0.4s";
 
+      /* SAVE AGAIN BEFORE MOVE */
       setTimeout(()=>{
-         window.location.href="page6.html";
+          localStorage.setItem("phoneNumber", phone);
+          window.location.href="page6.html";
       },400);
   }
 
